@@ -16,7 +16,7 @@ abstract class BaseTest {
 
     @BeforeSuite
     void checkIfPlaywrightCreatedAndBrowserLaunched() {
-        if (playwright != null) {git restore
+        if (playwright != null) {
             System.out.println("Playwright created");
         } else {
             System.out.println("FATAL: Playwright is NOT created.");
