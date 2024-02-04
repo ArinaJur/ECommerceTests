@@ -1,10 +1,14 @@
-package test;
+package tests;
 
 import com.microsoft.playwright.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utils.TestData;
+
+import static utils.TestData.BASE_URL;
+import static utils.TestData.HOME_END_POINT;
 
 abstract class BaseTest {
 
@@ -38,6 +42,16 @@ abstract class BaseTest {
 
         page = context.newPage();
         System.out.println("Page created");
+
+        System.out.println("Start test");
+
+        getPage().navigate(BASE_URL);
+
+        if(isOnHomePage()) {
+            System.out.println("Base url is opened and content is not empty.");
+        } else {
+            System.out.println("ERROR: Base url is NOT opened OR content is EMPTY.");
+        }
     }
 
     @AfterMethod
@@ -56,7 +70,7 @@ abstract class BaseTest {
     void closeBrowserAndPlaywright() {
         if (browser != null) {
             browser.close();
-            System.out.println("Browser closed");
+
         }
         if (playwright != null) {
             playwright.close();
@@ -64,7 +78,18 @@ abstract class BaseTest {
         }
     }
 
+    private boolean isOnHomePage() {
+        getPage().waitForLoadState();
+
+        return getPage().url().equals(BASE_URL + HOME_END_POINT) && !page.content().isEmpty();
+    }
+
     Page getPage() {
         return page;
+    }
+
+    protected boolean getIsOnHomePage() {
+
+        return isOnHomePage();
     }
 }
