@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import tests.BaseTest;
 
 public final class LoggerUtils {
+
     private static final String ERROR = "❌";
     private static final String SUCCESS = "✅";
     private static final String WARNING = "⚠️";
